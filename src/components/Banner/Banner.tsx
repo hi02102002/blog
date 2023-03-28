@@ -7,7 +7,7 @@ const Banner = () => {
   const router = useRouter();
 
   return (
-    <section className="min-h-[calc(100vh_-_60px)] bg-neutral-100 dark:bg-[#282828] py-5 flex items-center justify-center">
+    <section className="min-h-[calc(100vh_-_120px)] bg-neutral-100 dark:bg-[#282828] py-5 flex items-center justify-center">
       <Container>
         <div className="flex flex-col items-center gap-4">
           <Image

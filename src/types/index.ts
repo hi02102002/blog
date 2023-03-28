@@ -1,5 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 
+
+
 import { NextPage } from 'next';
 
 export type NextPageWithLayout<P = Record<string, never>, IP = P> = NextPage<
@@ -19,6 +21,7 @@ export type Post = {
   description?: string;
   read_time: string;
   author?: string;
+  status: 'Publish' | 'Draft' | 'In progress';
 };
 
 type Thumbnail = {

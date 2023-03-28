@@ -1,24 +1,33 @@
 import 'react-notion-x/src/styles.css';
 
+
+
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 
-import { Josefin_Sans } from '@next/font/google';
+
+
+import { Roboto } from '@next/font/google';
 import 'katex/dist/katex.min.css';
 import 'prismjs/themes/prism-tomorrow.css';
 import colors from 'tailwindcss/colors';
 
+
+
 import { NextPageWithLayout } from '@/types';
+
+
 
 import '../styles/globals.css';
 import '../styles/notion.css';
+
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const josefinSans = Josefin_Sans({ subsets: ['latin'] });
+const roboto = Roboto({ weight: ['100', '300', '400', '500', '700', '900'] });
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
@@ -27,8 +36,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     <>
       <style jsx global>{`
         :root {
-          --font: ${josefinSans.style.fontFamily};
-          --notion-font: ${josefinSans.style.fontFamily};
+          --font: ${roboto.style.fontFamily};
+          --notion-font: ${roboto.style.fontFamily};
           --notion-header-height: 60px;
         }
       `}</style>

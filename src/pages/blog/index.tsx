@@ -1,9 +1,11 @@
 import { GetStaticProps } from 'next';
 
-import { Container } from '@/components';
+
+
+import { Container, TextShadow } from '@/components';
 import Post from '@/components/Post';
 import { Layout } from '@/layout';
-import { getAllPost } from '@/libs/notion';
+import { getPublishPost } from '@/libs/notion';
 import { NextPageWithLayout, Post as TPost } from '@/types';
 
 type Props = {
@@ -14,8 +16,10 @@ const Blog: NextPageWithLayout<Props> = ({ posts }) => {
   return (
     <div className="py-8">
       <Container>
-        <h2 className="text-2xl font-bold">Blog</h2>
-        <ul className="space-y-4 mt-8">
+        <h2 className="text-2xl font-bold ">
+          <TextShadow right={3}>Blog</TextShadow>
+        </h2>
+        <ul className="space-y-4 mt-6">
           {posts.map((post) => {
             return (
               <li key={post.id}>
@@ -34,7 +38,7 @@ Blog.getLayout = (page) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getAllPost();
+  const posts = await getPublishPost();
 
   return {
     props: {

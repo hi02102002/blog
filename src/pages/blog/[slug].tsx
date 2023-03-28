@@ -1,5 +1,7 @@
 import { NotionRenderer } from 'react-notion-x';
 
+
+
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
@@ -54,62 +56,62 @@ const BlogDetail: NextPageWithLayout<Props> = ({ blocks, post }) => {
     <>
       <div className="py-8">
         <div>
-          <NotionRenderer
-            recordMap={blocks}
-            components={{
-              Code,
-              Equation,
-              nextLink: Link,
-              nextImage: Image,
-              Modal,
-              Pdf,
-            }}
-            fullPage
-            pageAside={false}
-            darkMode={theme === 'dark'}
-            previewImages
-            pageTitle={
-              <div>
-                <h1 className="text-4xl">{post.title}</h1>
-                <div className="space-y-2">
-                  <div className="text-base flex items-center gap-4">
-                    {post.author && (
-                      <span className="font-bold">Author: {post.author}</span>
-                    )}
-                    <span className="text-sm">{convertDate(post.date)}</span>
+          <Container className="mb-4">
+            <div className="w-full mb-5">
+              {post.thumbnails && post.thumbnails[0] && (
+                <div className="  rounded shrink-0 overflow-hidden w-full">
+                  <div className="aspect-w-16 aspect-h-9 w-full">
+                    <Image
+                      src={post.thumbnails[0].url}
+                      alt={post.title}
+                      fill
+                      placeholder="blur"
+                      blurDataURL={post.thumbnails[0].url}
+                      className="object-cover"
+                      draggable={false}
+                    />
                   </div>
-                  <div className="flex items-center gap-4 ">
-                    {post.tags?.map((tag) => (
-                      <Tag className="text-base" key={tag}>
-                        {tag}
-                      </Tag>
-                    ))}
-                  </div>
+                </div>
+              )}
+            </div>
+            <div className="mb-6">
+              <h1 className="text-4xl font-semibold mb-6">{post.title}</h1>
+              <div className="space-y-2">
+                <div className="text-base flex items-center leading-none gap-1">
+                  {post.author && (
+                    <span className="font-medium">{post.author}</span>
+                  )}
+                  <span className="text-sm text-subtext dark:text-neutral-400">
+                    {convertDate(post.date)}
+                  </span>
+                </div>
+                <div className="flex items-center gap-4 ">
+                  {post.tags?.map((tag) => (
+                    <Tag className="text-base" key={tag}>
+                      {tag}
+                    </Tag>
+                  ))}
                 </div>
               </div>
-            }
-            pageCover={
-              <Container>
-                <div className="w-full mb-5">
-                  {post.thumbnails && post.thumbnails[0] && (
-                    <div className="  rounded shrink-0 overflow-hidden w-full">
-                      <div className="aspect-w-16 aspect-h-9 w-full">
-                        <Image
-                          src={post.thumbnails[0].url}
-                          alt={post.title}
-                          fill
-                          placeholder="blur"
-                          blurDataURL={post.thumbnails[0].url}
-                          className="object-cover"
-                          draggable={false}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </Container>
-            }
-          />
+            </div>
+            <NotionRenderer
+              recordMap={blocks}
+              components={{
+                Code,
+                Equation,
+                nextLink: Link,
+                nextImage: Image,
+                Modal,
+                Pdf,
+              }}
+              fullPage
+              pageAside={false}
+              darkMode={theme === 'dark'}
+              previewImages
+              pageTitle={false}
+              pageCover={false}
+            />
+          </Container>
         </div>
       </div>
     </>
