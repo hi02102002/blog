@@ -7,10 +7,17 @@ module.exports = withTV({
     './components/**/*.{js,ts,jsx,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       spacing: {
         header: '3.75rem',
+      },
+      colors: {
+        bg: 'var(--bg-body)',
+        text: 'var(--text)',
+        subtext: 'var(--subtext)',
+        border: 'var(--border-color)',
       },
     },
   },

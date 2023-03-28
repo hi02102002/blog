@@ -12,7 +12,7 @@ export const NAVBAR = [
     title: 'About',
   },
   {
-    href: '/Contact',
+    href: '/contact',
     title: 'Contact',
   },
 ];

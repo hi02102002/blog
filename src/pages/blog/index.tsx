@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 
 import { Container } from '@/components';
 import Post from '@/components/Post';
@@ -33,13 +33,14 @@ Blog.getLayout = (page) => {
   return <Layout>{page}</Layout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPost();
 
   return {
     props: {
       posts,
     },
+    revalidate: 10,
   };
 };
 

@@ -1,5 +1,6 @@
 import 'react-notion-x/src/styles.css';
 
+import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 
@@ -11,6 +12,7 @@ import colors from 'tailwindcss/colors';
 import { NextPageWithLayout } from '@/types';
 
 import '../styles/globals.css';
+import '../styles/notion.css';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -35,7 +37,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         height={2}
         options={{ showSpinner: false }}
       />
-      {getLayout(<Component {...pageProps} />)}
+      <ThemeProvider attribute="class">
+        {getLayout(<Component {...pageProps} />)}
+      </ThemeProvider>
     </>
   );
 }

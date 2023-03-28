@@ -1,10 +1,13 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import { Button, Container } from '@/components';
 
 const Banner = () => {
+  const router = useRouter();
+
   return (
-    <section className="min-h-[calc(100vh_-_60px)] bg-neutral-100 py-5 flex items-center justify-center">
+    <section className="min-h-[calc(100vh_-_60px)] bg-neutral-100 dark:bg-[#282828] py-5 flex items-center justify-center">
       <Container>
         <div className="flex flex-col items-center gap-4">
           <Image
@@ -21,7 +24,15 @@ const Banner = () => {
           <p className="text-neutral-400 text-center">
             Passionate and creative front-end software engineer.
           </p>
-          <Button className="mt-3">More about me.</Button>
+          <Button
+            onClick={() => {
+              router.push('/about');
+            }}
+            className="mt-3"
+            intents="primary"
+          >
+            More about me.
+          </Button>
         </div>
       </Container>
     </section>

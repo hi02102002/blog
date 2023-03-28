@@ -18,6 +18,7 @@ export type Post = {
   thumbnails?: Array<Thumbnail>;
   description?: string;
   read_time: string;
+  author?: string;
 };
 
 type Thumbnail = {

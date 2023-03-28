@@ -1,0 +1,15 @@
+.notion {
+  --notion-max-width: 768px;
+}
+
+.notion-header {
+  @apply hidden;
+}
+
+.notion-page {
+  padding-bottom: 0;
+}
+
+.notion-page.notion-page-no-icon {
+  padding-top: 0;
+}

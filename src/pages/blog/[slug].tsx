@@ -1,6 +1,7 @@
 import { NotionRenderer } from 'react-notion-x';
 
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,10 +10,11 @@ import { useRouter } from 'next/router';
 import { NotionAPI } from 'notion-client';
 import slugify from 'slugify';
 
-import { Container } from '@/components';
+import { Container, Tag } from '@/components';
 import { Layout } from '@/layout';
 import { getAllPost } from '@/libs/notion';
 import { NextPageWithLayout, Post } from '@/types';
+import { convertDate } from '@/utils/convertDate';
 
 const Code = dynamic(() =>
   import('react-notion-x/build/third-party/code').then((m) => m.Code)
@@ -41,6 +43,7 @@ type Props = {
 
 const BlogDetail: NextPageWithLayout<Props> = ({ blocks, post }) => {
   const router = useRouter();
+  const { theme } = useTheme();
 
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
@@ -49,48 +52,6 @@ const BlogDetail: NextPageWithLayout<Props> = ({ blocks, post }) => {
   }
   return (
     <>
-      <style jsx global>{`
-        .notion-header {
-          display: none;
-        }
-
-        .notion-page {
-          margin: 0;
-        }
-
-        .notion-page-no-cover {
-          margin-top: 0 !important;
-        }
-
-        .notion-page-has-cover.notion-page-no-icon {
-          padding-top: 0;
-        }
-
-        .notion-full-page {
-          padding-bottom: 0;
-        }
-
-        .notion-code-copy {
-          right: 2em;
-        }
-
-        .notion-code-copy-button {
-          padding: 0;
-          width: 32px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .notion-code-copy-button svg {
-          width: 1rem;
-          height: 1rem;
-        }
-
-        pre[class*='language-'] {
-          padding: 3em 2em;
-        }
-      `}</style>
       <div className="py-8">
         <div>
           <NotionRenderer
@@ -99,13 +60,32 @@ const BlogDetail: NextPageWithLayout<Props> = ({ blocks, post }) => {
               Code,
               Equation,
               nextLink: Link,
+              nextImage: Image,
               Modal,
               Pdf,
             }}
             fullPage
+            pageAside={false}
+            darkMode={theme === 'dark'}
+            previewImages
             pageTitle={
               <div>
                 <h1 className="text-4xl">{post.title}</h1>
+                <div className="space-y-2">
+                  <div className="text-base flex items-center gap-4">
+                    {post.author && (
+                      <span className="font-bold">Author: {post.author}</span>
+                    )}
+                    <span className="text-sm">{convertDate(post.date)}</span>
+                  </div>
+                  <div className="flex items-center gap-4 ">
+                    {post.tags?.map((tag) => (
+                      <Tag className="text-base" key={tag}>
+                        {tag}
+                      </Tag>
+                    ))}
+                  </div>
+                </div>
               </div>
             }
             pageCover={
@@ -138,7 +118,7 @@ const BlogDetail: NextPageWithLayout<Props> = ({ blocks, post }) => {
 
 BlogDetail.getLayout = (page) => <Layout>{page}</Layout>;
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
   const posts = await getAllPost();
 
@@ -153,12 +133,20 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const notion = new NotionAPI();
 
   const blocks = await notion.getPage(post.id);
-
   return {
     props: {
       blocks,
       post,
     },
+    revalidate: 10,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getAllPost();
+  return {
+    paths: posts.map((post) => `/blog/${slugify(post.title.toLowerCase())}`),
+    fallback: true,
   };
 };
 
