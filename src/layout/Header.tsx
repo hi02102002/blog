@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { IconMenu2, IconMoon, IconSun, IconX } from '@tabler/icons-react';
 import colors from 'tailwindcss/colors';
 
-import { Container, TextShadow } from '@/components';
+import { ButtonIcon, Container, TextShadow } from '@/components';
 import { NAVBAR } from '@/constants';
 import useClickOutside from '@/hooks/useClickOutSize';
 import { useSize } from '@/hooks/useSize';
@@ -72,9 +72,9 @@ const Header = () => {
   return (
     <header
       ref={headerRef}
-      className="select-none flex items-center h-header text-text  backdrop-blur-sm fixed top-0 left-0 right-0 z-50  border-b border-transparent bg-bg"
+      className="fixed inset-x-0 top-0 z-50 flex  h-header select-none items-center border-b border-transparent bg-bg  text-text backdrop-blur-sm"
     >
-      <Container className="flex items-center justify-between relative z-[1] ">
+      <Container className="relative z-[1] flex items-center justify-between ">
         <Link href="/">
           <TextShadow
             className="text-4xl font-bold"
@@ -92,7 +92,7 @@ const Header = () => {
               }
             )}
           >
-            <ul className="flex items-center gap-4 md:flex-row flex-col">
+            <ul className="flex flex-col items-center gap-4 md:flex-row">
               {NAVBAR.map((el) => {
                 return (
                   <li key={el.href}>
@@ -101,6 +101,9 @@ const Header = () => {
                       className={clsxm(
                         'font-medium hover:opacity-80 transition-all'
                       )}
+                      onClick={() => {
+                        setIsOpen(false);
+                      }}
                     >
                       {el.title}
                     </Link>
@@ -109,14 +112,13 @@ const Header = () => {
               })}
             </ul>
           </nav>
-          <div
-            className="cursor-pointer w-8 h-8 flex items-center justify-center"
+          <ButtonIcon
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          >
-            {theme === 'light' ? <IconSun /> : <IconMoon />}
-          </div>
+            Icon={theme === 'light' ? IconSun : IconMoon}
+            className="text-yellow-600"
+          />
           <div
-            className="md:hidden flex items-center justify-center cursor-pointer relative w-8 h-8"
+            className="relative flex h-8 w-8 cursor-pointer items-center justify-center md:hidden"
             onClick={() => {
               setIsOpen(!isOpen);
             }}

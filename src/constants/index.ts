@@ -16,3 +16,11 @@ export const NAVBAR = [
     title: 'Contact',
   },
 ];
+
+export const LOGO_LANGUAGES = {
+  typescript: '/ts.svg',
+  ts: '/ts.svg',
+  javascript: '/js.svg',
+  js: '/js.svg',
+  html: '/html.svg',
+};

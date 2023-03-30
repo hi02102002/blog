@@ -1,27 +1,17 @@
 import 'react-notion-x/src/styles.css';
 
-
-
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 
-
-
 import { Roboto } from '@next/font/google';
-import 'katex/dist/katex.min.css';
-import 'prismjs/themes/prism-tomorrow.css';
 import colors from 'tailwindcss/colors';
-
-
 
 import { NextPageWithLayout } from '@/types';
 
-
-
 import '../styles/globals.css';
 import '../styles/notion.css';
-
+import '../styles/prism.css';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;

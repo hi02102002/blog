@@ -1,5 +1,28 @@
 import * as env from 'env-var';
 
-export const API_TOKEN = env.get('NEXT_PUBLIC_NOTION_TOKEN').asString();
+const { get } = env.from({
+  NEXT_PUBLIC_NOTION_TOKEN: process.env.NEXT_PUBLIC_NOTION_TOKEN,
+  NEXT_PUBLIC_NOTION_BLOG_ID: process.env.NEXT_PUBLIC_NOTION_BLOG_ID,
+  NEXT_PUBLIC_SPOTIFY_CLIENT_ID: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
+  NEXT_PUBLIC_SPOTIFY_SECRET: process.env.NEXT_PUBLIC_SPOTIFY_SECRET,
+  NEXT_PUBLIC_SPOTIFY_ACCESS_TOKEN:
+    process.env.NEXT_PUBLIC_SPOTIFY_ACCESS_TOKEN,
+  NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN:
+    process.env.NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN,
+});
 
-export const BLOG_ID = env.get('NEXT_PUBLIC_NOTION_BLOG_ID').asString();
+export const API_TOKEN = get('NEXT_PUBLIC_NOTION_TOKEN').asString();
+
+export const BLOG_ID = get('NEXT_PUBLIC_NOTION_BLOG_ID').asString();
+
+export const SPOTIFY_CLIENT_ID = get(
+  'NEXT_PUBLIC_SPOTIFY_CLIENT_ID'
+).asString();
+
+export const SPOTIFY_SECRET = get('NEXT_PUBLIC_SPOTIFY_SECRET').asString();
+export const SPOTIFY_ACCESS_TOKEN = get(
+  'NEXT_PUBLIC_SPOTIFY_ACCESS_TOKEN'
+).asString();
+export const SPOTIFY_REFRESH_TOKEN = get(
+  'NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN'
+).asString();

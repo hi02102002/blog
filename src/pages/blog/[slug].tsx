@@ -10,17 +10,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { NotionAPI } from 'notion-client';
+import { ExtendedRecordMap } from 'notion-types';
 import slugify from 'slugify';
 
 import { Container, Tag } from '@/components';
+import Code from '@/components/Code';
 import { Layout } from '@/layout';
 import { getAllPost } from '@/libs/notion';
 import { NextPageWithLayout, Post } from '@/types';
 import { convertDate } from '@/utils/convertDate';
 
-const Code = dynamic(() =>
-  import('react-notion-x/build/third-party/code').then((m) => m.Code)
-);
+// const Code = dynamic(() =>
+//   import('react-notion-x/build/third-party/code').then((m) => m.Code)
+// );
 
 const Equation = dynamic(() =>
   import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
@@ -39,7 +41,7 @@ const Modal = dynamic(
 );
 
 type Props = {
-  blocks: any;
+  blocks: ExtendedRecordMap;
   post: Post;
 };
 
@@ -57,9 +59,9 @@ const BlogDetail: NextPageWithLayout<Props> = ({ blocks, post }) => {
       <div className="py-8">
         <div>
           <Container className="mb-4">
-            <div className="w-full mb-5">
+            <div className="mb-5 w-full">
               {post.thumbnails && post.thumbnails[0] && (
-                <div className="  rounded shrink-0 overflow-hidden w-full">
+                <div className="  w-full shrink-0 overflow-hidden rounded">
                   <div className="aspect-w-16 aspect-h-9 w-full">
                     <Image
                       src={post.thumbnails[0].url}
@@ -75,9 +77,9 @@ const BlogDetail: NextPageWithLayout<Props> = ({ blocks, post }) => {
               )}
             </div>
             <div className="mb-6">
-              <h1 className="text-4xl font-semibold mb-6">{post.title}</h1>
+              <h1 className="mb-6 text-4xl font-semibold">{post.title}</h1>
               <div className="space-y-2">
-                <div className="text-base flex items-center leading-none gap-1">
+                <div className="flex items-center gap-1 text-base leading-none">
                   {post.author && (
                     <span className="font-medium">{post.author}</span>
                   )}
@@ -97,7 +99,7 @@ const BlogDetail: NextPageWithLayout<Props> = ({ blocks, post }) => {
             <NotionRenderer
               recordMap={blocks}
               components={{
-                Code,
+                Code: Code,
                 Equation,
                 nextLink: Link,
                 nextImage: Image,

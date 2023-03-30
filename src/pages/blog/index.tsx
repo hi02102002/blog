@@ -1,8 +1,6 @@
 import { GetStaticProps } from 'next';
 
-
-
-import { Container, TextShadow } from '@/components';
+import { SectionPage } from '@/components';
 import Post from '@/components/Post';
 import { Layout } from '@/layout';
 import { getPublishPost } from '@/libs/notion';
@@ -14,22 +12,17 @@ type Props = {
 
 const Blog: NextPageWithLayout<Props> = ({ posts }) => {
   return (
-    <div className="py-8">
-      <Container>
-        <h2 className="text-2xl font-bold ">
-          <TextShadow right={3}>Blog</TextShadow>
-        </h2>
-        <ul className="space-y-4 mt-6">
-          {posts.map((post) => {
-            return (
-              <li key={post.id}>
-                <Post post={post} />
-              </li>
-            );
-          })}
-        </ul>
-      </Container>
-    </div>
+    <SectionPage title="Blog">
+      <ul className="space-y-4">
+        {posts.map((post) => {
+          return (
+            <li key={post.id}>
+              <Post post={post} />
+            </li>
+          );
+        })}
+      </ul>
+    </SectionPage>
   );
 };
 

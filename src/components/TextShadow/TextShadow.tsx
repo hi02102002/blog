@@ -2,9 +2,9 @@ import React, { CSSProperties } from 'react';
 
 import { clsxm } from '@/utils/clsxm';
 
-type Props = {
+export type TextShadowProps = {
   colorShadow?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   right?: number;
   down?: number;
   blur?: number;
@@ -18,7 +18,7 @@ const TextShadow = ({
   down = 1,
   right = 2,
   className,
-}: Props) => {
+}: TextShadowProps) => {
   const style = {
     textShadow: `${right}px ${down}px ${blur}px ${colorShadow}`,
   } as CSSProperties;

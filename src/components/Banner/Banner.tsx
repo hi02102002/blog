@@ -7,7 +7,7 @@ const Banner = () => {
   const router = useRouter();
 
   return (
-    <section className="min-h-[calc(100vh_-_120px)] bg-neutral-100 dark:bg-[#282828] py-5 flex items-center justify-center">
+    <section className="flex  grow items-center justify-center bg-neutral-100 py-5 dark:bg-[#282828]">
       <Container>
         <div className="flex flex-col items-center gap-4">
           <Image
@@ -17,11 +17,11 @@ const Banner = () => {
             width={100}
             height={100}
           />
-          <h2 className="text-4xl font-black text-center">
+          <h2 className="text-center text-4xl font-black">
             Hi, I&apos;m{' '}
-            <span className="text-sky-500 inline-block "> Hoang Huy </span>
+            <span className="inline-block text-sky-500 "> Hoang Huy </span>
           </h2>
-          <p className="text-neutral-400 text-center">
+          <p className="text-center text-neutral-400">
             Passionate and creative front-end software engineer.
           </p>
           <Button
